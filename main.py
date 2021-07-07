@@ -73,12 +73,12 @@ except:
     f.write("")
   roles = open('roles.txt')
 
-i = open('members.txt', 'w')
-i.close()
-x = open('channels.txt', 'w')
+x = open('members.txt', 'w')
 x.close()
-y = open('roles.txt', 'w')
+y = open('channels.txt', 'w')
 y.close()
+z = open('roles.txt', 'w')
+z.close()
 
 bot = commands.Bot(command_prefix='?', intents=discord.Intents.all())
 
