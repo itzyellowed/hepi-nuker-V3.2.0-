@@ -1,8 +1,8 @@
 {
-  "token":"ODQzODY1MzU3MDI2NTkwODA1.YKKE2w.GURaEc69WKUTVIWw5Gybh678Ocm",
-  "channel_spam_name":"ez nuke",
-  "role_spam_name":"ezzzz",
-  "spam_message":"@everyone get nuked lol",
+  "token":"Your bots token here",
+  "channel_spam_name":"spam channel name here",
+  "role_spam_name":"role spam name here",
+  "spam_message":"spam message here",
   "channel_spam_amount":499,
   "role_spam_amount":249,
   "webhook_spam":true

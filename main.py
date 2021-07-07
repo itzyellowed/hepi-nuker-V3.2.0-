@@ -45,6 +45,13 @@ scamount = setup.get("channel_spam_amount")
 rcamount = setup.get("role_spam_amount")
 hookspam = setup.get("webhook_spam")
 
+if scamount > 500:
+  print(Fore.RED+"The channel spam amount must be 500 or lower.")
+  exit()
+if rcamount > 250:
+  print(Fore.RED+"The role spam amount must be 250 or lower.")
+  exit()
+
 try:
   members = open('members.txt')
 except:
