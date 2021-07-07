@@ -29,4 +29,6 @@ download the ZIP fole of this repo, [Click here](https://www.python.org/download
 
 ##
 
+NOTE: Hepi nuker v3.1.2 is a lot more different then other versions of hepi nuker.
+
 Enjoy hepi nuker v3.1.2!
