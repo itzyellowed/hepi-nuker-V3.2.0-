@@ -1,4 +1,4 @@
-# Hepi nuker v3.1.2
+# Hepi nuker v3.2.0++
 
 ### Setup info
 
@@ -27,8 +27,17 @@ the setup should look like this when conpleted:
 
 download the ZIP fole of this repo, [Click here](https://www.python.org/downloads/) to download python on your PC. You can edit the json file on notepad.
 
-##
+### Links
 
-NOTE: Hepi nuker v3.1.2 is a lot more different then other versions of hepi nuker.
+#### Discord server
+[click here](https://discord.gg/Ws2ryYgTkz)
 
-Enjoy hepi nuker v3.1.2!
+#### Youtube channel
+[click here](https://youtube.com/channel/UCIGomE0ob75e4mtVoEE2sKg)
+
+#### Replit account
+[click here](https://replit.com/@DaredeviL69)
+
+### 
+
+Enjoy the nuker!

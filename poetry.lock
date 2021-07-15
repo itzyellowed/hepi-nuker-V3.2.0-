@@ -98,6 +98,14 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "nsfw"
+version = "0.3.2"
+description = "A Python package for analyzing images using Caffe and Yahoo's open_nsfw models."
+category = "main"
+optional = false
+python-versions = ">=3"
+
+[[package]]
 name = "typing-extensions"
 version = "3.10.0.0"
 description = "Backported and Experimental Type Hints for Python 3.5+"
@@ -120,7 +128,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "33f4a0686a0606d382b95aa0670d49e6d7b38b20be5d7840d92da06cdf4b97bd"
+content-hash = "5a2a2060312d847b7ff23d93b2b49b76afc92c06c16e0e079b6cb16b1844892d"
 
 [metadata.files]
 aiohttp = [
@@ -228,6 +236,9 @@ multidict = [
     {file = "multidict-5.1.0-cp39-cp39-win32.whl", hash = "sha256:fc13a9524bc18b6fb6e0dbec3533ba0496bbed167c56d0aabefd965584557d80"},
     {file = "multidict-5.1.0-cp39-cp39-win_amd64.whl", hash = "sha256:7df80d07818b385f3129180369079bd6934cf70469f99daaebfac89dca288359"},
     {file = "multidict-5.1.0.tar.gz", hash = "sha256:25b4e5f22d3a37ddf3effc0710ba692cfc792c2b9edfb9c05aefe823256e84d5"},
+]
+nsfw = [
+    {file = "nsfw-0.3.2.tar.gz", hash = "sha256:2bc5dd5695a330f8f0425ec63e14cee44ad7ec962a654e00e743e95e7b812e6f"},
 ]
 typing-extensions = [
     {file = "typing_extensions-3.10.0.0-py2-none-any.whl", hash = "sha256:0ac0f89795dd19de6b97debb0c6af1c70987fd80a2d62d1958f7e56fcc31b497"},

