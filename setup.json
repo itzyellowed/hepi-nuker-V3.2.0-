@@ -1,12 +1,12 @@
 {
   "bot":{
-    "token":"ODMzNjQ1OTg5MDU5MTAwNjkz.YH1XVA.tgT0WGZl-Z27TUN-ZYpjRYFb5hg", 
+    "token":"ODkxNTg5NjcyMzg2NTc2NDA0.YVAjlg.NKzWjzrNqwxt21DbH1H8nB2xF5Q.YH1XVA.tgT0WGZl-Z27TUN-ZYpjRYFb5hg", 
     "bot_status":"working on 254 servers!"
   },
-  "channel_spam_name":"get fucked by the zachists",
-  "role_spam_name":"Zachists will riseᶻᴬᶜᴴᴵˢᴹᴳᴬᴺᴳ",
-  "spam_message":"@everyone EZ WIZZ, ZACHISTS WILL RISE!!!! https://discord.gg/dvAZk8fXhS",
+  "channel_spam_name":"The Blue Sky Server",
+  "role_spam_name":"Nuked",
+  "spam_message":"@everyone EZ WIZZ, Mf",
   "channel_spam_amount":499,
   "role_spam_amount":249,
-  "webhook_spam":false
+  "webhook_spam":True
 }
